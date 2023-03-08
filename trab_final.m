@@ -70,14 +70,6 @@ ber_base8 = calculate_ber(NA_8psk_base,modData, data,Eb_N0_lin,pskdemod);
 
 %ber 8PSK C1
 ber8_c1 = calculate_ber_conv(NA_8psk_c1,modData_conv_1, trellis1,data,Eb_N0_lin,pskdemod);
-for i = 1:length(Eb_N0_lin)
-    n = NA_8psk_c1(i)*complex(randn(1, (num_b/bps)/r1), randn(1, (num_b/bps)/r1))*sqrt(0.5);
-    recebido = modData_conv_1 + n'; 
-    demod = step(pskdemod,recebido);
-    decoded = vitdec(demod,trellis1,3,'trunc','hard');
-    errors = sum(decoded ~= data);
-    ber8_c1(i) = errors / num_b; % contagem de erros e cálculo do BER
-end
 
 %ber 8PSK C2
 ber8_c2 = calculate_ber_conv(NA_8psk_c2,modData_conv_2, trellis2,data,Eb_N0_lin,pskdemod);
